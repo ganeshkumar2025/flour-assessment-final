@@ -1,0 +1,55 @@
+##
+### SalesRepresentatives - Create
+POST https://localhost:7232/api/SalesRepresentatives
+Content-Type: application/json
+
+{
+  "firstName": "Ganesh",
+  "lastName": "Kumar",
+  "email": "ravi.kumar@example.com",
+  "phoneNumber": "9876543210",
+  "region": "South",
+  "hireDate": "2023-01-10T00:00:00",
+  "status": "Active"
+}
+
+###
+
+### Products - Create
+POST https://localhost:7232/api/Products
+Content-Type: application/json
+
+{
+  "name": "SparkVac Pro",
+  "category": "Electronics",
+  "price": 1299.50,
+  "isActive": true
+}
+
+###
+
+### Sales - Create (assuming SalesRepId: 1, ProductId: 1)
+POST https://localhost:7232/api/Sales
+Content-Type: application/json
+
+{
+  "salesRepId": 1,
+  "productId": 1,
+  "quantity": 3,
+  "saleDate": "2025-06-01T00:00:00",
+  "amount": 3898.50
+}
+
+###
+
+### Targets - Create (assuming SalesRepId: 1)
+POST https://localhost:7232/api/Targets
+Content-Type: application/json
+
+{
+  "salesRepId": 1,
+  "targetMonth": "2025-06",
+  "targetAmount": 5000.00
+}
+
+###
