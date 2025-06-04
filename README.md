@@ -1,6 +1,6 @@
 # Sales Representative Management System
 
-A full-stack enterprise-grade web application for managing sales representatives, products, targets, and sales data, built using Angular 20, ASP.NET Core Web API, SQL Server 2022, and Power BI.
+A full-stack web application for managing sales representatives, products, targets, and sales data, built using Angular 20, ASP.NET Core Web API, SQL Server 2022, and Power BI.
 
 ---
 
