@@ -10,7 +10,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { SalesService } from '../service/sales.service';
 import { ProductsService } from '../../products/service/products.service';
 import { SalesRepresentativeService } from '../../../core/services/sales-representative.service';
-
+import { formatDate } from '@angular/common';
 
 @Component({
   selector: 'app-sales-edit',
@@ -44,8 +44,6 @@ export class EditComponent implements OnInit {
 
   ngOnInit(): void {
     this.id = +this.route.snapshot.paramMap.get('id')!;
-
-    
     this.form = this.fb.group({
       salesRepId: [null, Validators.required],
       productId: [null, Validators.required],
@@ -58,22 +56,32 @@ export class EditComponent implements OnInit {
     this.productService.getAll().subscribe(data => this.products = data);
 
     this.salesService.getById(this.id).subscribe({
-      next: sale => this.form.patchValue(sale),
-      error: () => this.snackBar.open('Failed to load sale.', 'Close', { duration: 3000 })
-    });
-  }
+    next: sale => {
+      const formattedDate = formatDate(sale.saleDate, 'yyyy-MM-dd', 'en-US');
+      this.form.patchValue({
+        ...sale,
+        saleDate: formattedDate
+      });
+    },
+    error: () => this.snackBar.open('Failed to load sale.', 'Close', { duration: 3000 })
+  });
+}
+  
 
   onSubmit(): void {
-    if (this.form.invalid) return;
-
-    this.salesService.update(this.id, this.form.value).subscribe({
-      next: () => {
-        this.snackBar.open('Sale updated successfully!', 'Close', { duration: 3000 });
-        this.router.navigate(['/sales']);
-      },
-      error: () => {
-        this.snackBar.open('Update failed.', 'Close', { duration: 3000 });
-      }
-    });
-  }
+  if (this.form.invalid) return;
+ 
+  const formData = { ...this.form.value };
+  formData.saleDate = formatDate(formData.saleDate, 'yyyy-MM-dd', 'en-US');
+console.log('Form Data being submitted:', this.form.value);
+  this.salesService.update(this.id, formData).subscribe({
+    next: () => {
+      this.snackBar.open('Sale updated successfully!', 'Close', { duration: 3000 });
+      this.router.navigate(['/sales']);
+    },
+    error: () => {
+      this.snackBar.open('Update failed.', 'Close', { duration: 3000 });
+    }
+  });
+}
 }

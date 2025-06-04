@@ -99,7 +99,7 @@ export class EditComponent implements OnInit {
 
   this.service.update(+id, payload).subscribe(() => {
     this.snackBar.open('Sales rep updated.', 'Close', { duration: 3000 });
-    this.router.navigate(['/sales-representatives']);
+    this.router.navigate(['/sales-representative']);
   });
 }
 
@@ -122,11 +122,11 @@ private formatDate(date: Date): string {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result === true) {
-        this.router.navigate(['/sales-representatives']);
+        this.router.navigate(['/sales-representative']);
       }
     });
   } else {
-    this.router.navigate(['/sales-representatives']);
+    this.router.navigate(['/sales-representative']);
   }
 }
   
