@@ -17,26 +17,59 @@ import { EditComponent as TargetEditComponent } from './features/targets/edit/ed
 import { SalesListComponent } from './features/sales/list/list.component';
 import { SalesCreateComponent } from './features/sales/create/create.component';
 import { EditComponent as SalesEditComponent } from './features/sales/edit/edit.component';
+import { LoginComponent } from './features/auth/login.component';
+import { AuthGuard } from './core/services/auth.guard';
 
 
 export const routes: Routes = [
-  { path: '', component: HomeComponent },
-  { path: 'sales-reps', redirectTo: 'sales-representative', pathMatch: 'full' },
-  { path: 'sales-representative', component: SalesRepListComponent },
+  { path: '', redirectTo: 'home', pathMatch: 'full' }, // 🔁 Redirect root to login
+
+  { path: 'login', component: LoginComponent },
+
+  {
+    path: 'home',
+    canActivate: [AuthGuard],
+    data: { roles: ['Admin', 'SalesManager'] },
+    loadComponent: () => import('./home-component/home.component').then(m => m.HomeComponent)
+  },
+
+  // Secure remaining paths (add AuthGuard where needed)
+  {
+    path: 'sales-representative',
+    component: SalesRepListComponent,
+    canActivate: [AuthGuard],
+    data: { roles: ['Admin', 'SalesManager'] }
+  },
   { path: 'sales-representative/create', component: SalesRepCreateComponent },
   { path: 'sales-representative/edit/:id', component: SalesRepEditComponent },
 
-  { path: 'products', component: ProductListComponent },
-  { path: 'products/create', component: CreateComponent  },
-  { path: 'products/edit/:id', component: EditComponent  },
+  { path: 'products', component: ProductListComponent,canActivate: [AuthGuard],
+  data: { roles: ['Admin', 'SalesManager'] } },
+  { path: 'products/create', component: CreateComponent ,canActivate: [AuthGuard],
+  data: { roles: ['Admin', 'SalesManager'] }},
+  { path: 'products/edit/:id', component: EditComponent,canActivate: [AuthGuard],
+  data: { roles: ['Admin', 'SalesManager'] } },
 
-  { path: 'targets', component: TargetListComponent },
-  { path: 'targets/create', component: TargetsCreateComponent },
-  { path: 'targets/edit/:id', component: TargetEditComponent },
+  { path: 'targets', component: TargetListComponent,canActivate: [AuthGuard],
+  data: { roles: ['Admin', 'SalesManager'] } },
+  { path: 'targets/create', component: TargetsCreateComponent,canActivate: [AuthGuard],
+  data: { roles: ['Admin', 'SalesManager'] } },
+  { path: 'targets/edit/:id', component: TargetEditComponent,canActivate: [AuthGuard],
+  data: { roles: ['Admin', 'SalesManager'] } },
 
-  { path: 'sales', component: SalesListComponent },
-  { path: 'sales/create', component: SalesCreateComponent },
-  { path: 'sales/edit/:id', component: SalesEditComponent },
+  { path: 'sales', component: SalesListComponent,canActivate: [AuthGuard],
+  data: { roles: ['Admin', 'SalesManager'] } },
+  { path: 'sales/create', component: SalesCreateComponent,canActivate: [AuthGuard],
+  data: { roles: ['Admin', 'SalesManager'] } },
+  { path: 'sales/edit/:id', component: SalesEditComponent,canActivate: [AuthGuard],
+  data: { roles: ['Admin', 'SalesManager'] } },
 
-  { path: '**', redirectTo: '' }
+  {
+    path: 'admin',
+    canActivate: [AuthGuard],
+    data: { roles: ['Admin'] },
+    loadComponent: () => import('./features/admin/admin.component').then(m => m.AdminComponent)
+  },
+
+  { path: '**', redirectTo: 'login' } // 🔁 Catch-all to login
 ];

@@ -1,7 +1,7 @@
 #splash-screen {
   position: fixed;
   inset: 0;
-  background: #1976d2;
+  background: #58a4f0;
   color: white;
   z-index: 9999;
   display: flex;
@@ -57,3 +57,65 @@ html, body {
   flex-direction: column;
 }
 
+/* Center main content (login form) */
+:host ::ng-deep router-outlet + * {
+  min-height: calc(100vh - 64px - 40px); // adjust for toolbar/footer heights if needed
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Optional: Style the login form for better appearance */
+form {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  background: #fff;
+  padding: 24px 32px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+mat-toolbar {
+  .mat-icon-button {
+    margin-left: 12px;
+  }
+}
+mat-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap; // ✅ important to avoid overflow on small screens
+
+  .brand-title {
+    font-weight: bold;
+    font-size: 18px;
+  }
+
+  .spacer {
+    flex: 1 1 auto;
+  }
+
+  .user-info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    .user-email {
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.9);
+    }
+  }
+  @media (max-width: 768px) {
+  mat-toolbar {
+    flex-direction: column;
+    align-items: flex-start;
+
+    .user-info {
+      justify-content: space-between;
+      width: 100%;
+      padding-top: 5px;
+    }
+  }
+}
+}

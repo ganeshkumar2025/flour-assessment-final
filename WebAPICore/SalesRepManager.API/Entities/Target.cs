@@ -1,4 +1,6 @@
-﻿namespace SalesRepManager.API.Data
+﻿using SalesRepManager.API.Entities;
+
+namespace SalesRepManager.API.Data
 {
     public class Target
     {

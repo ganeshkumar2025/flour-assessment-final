@@ -1,4 +1,5 @@
-﻿using SalesRepManager.API.Helper;
+﻿using SalesRepManager.API.Entities;
+using SalesRepManager.API.Helper;
 using System.Text.Json.Serialization;
 
 namespace SalesRepManager.API.Data

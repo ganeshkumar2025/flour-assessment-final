@@ -5,7 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using SalesRepManager.API.Data;
+using SalesRepManager.API.Entities;
+using SalesRepManager.API.DBContext;
 
 namespace SalesRepManager.API.Controllers
 {

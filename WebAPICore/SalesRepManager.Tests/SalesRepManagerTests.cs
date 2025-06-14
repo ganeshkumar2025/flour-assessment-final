@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SalesRepManager.API.Controllers;
 using SalesRepManager.API.Data;
+using SalesRepManager.API.DBContext;
+using SalesRepManager.API.Entities;
 
 namespace SalesRepManager.Tests
 {
@@ -87,7 +89,7 @@ namespace SalesRepManager.Tests
             context.SaveChanges();
 
             var controller = new SalesRepresentativesController(context);
-            var result = await controller.DeleteSalesRepresentative(rep.Id);
+            var result = await controller.DeleteSalesRep(rep.Id);
             result.Should().BeOfType<NoContentResult>();
         }
 

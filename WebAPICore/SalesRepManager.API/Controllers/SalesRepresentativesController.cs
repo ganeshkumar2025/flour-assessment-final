@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SalesRepManager.API.Data;
+using SalesRepManager.API.DBContext;
 
 namespace SalesRepManager.API.Controllers
 {

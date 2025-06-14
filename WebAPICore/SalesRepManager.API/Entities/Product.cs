@@ -1,4 +1,4 @@
-﻿namespace SalesRepManager.API.Data
+﻿namespace SalesRepManager.API.Entities
 {
     public class Product
     {
